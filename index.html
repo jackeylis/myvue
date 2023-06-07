@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 界面模板 -->
+			<!-- mustache -->
+			<h1>系统名称：{{title}}</h1>
+			<ul>
+				<!-- v-for：指令 -->
+				<li v-for="(item, i) in products">
+					名称：{{item.name}} 
+					<!-- 减少数量每次减1 -->
+					<!-- 调用changeStock()方法传入item：products  item.stock-1：newStock -->
+					<button @click="changeStock(item, item.stock - 1)">-</button>
+					<!-- 当货物大于0的是显示<span v-if="item.stock>0">{{item.stock}}</span>元素内容 -->
+					<!-- 否则小于0的时候显示<span v-else>无货</span>元素内容 -->
+					<span v-if="item.stock>0">{{item.stock}}</span>
+					<span v-else>无货</span>
+					<!-- 添加数量每次添加1 -->
+					<!-- 调用changeStock()方法传入item：products  item.stock+1：newStock -->
+					<button  @click="changeStock(item, item.stock + 1)">+</button>
+					<!-- vue事件创建click="{事件方法}" -->
+					<button @click="remove(i)">删除</button>
+				</li>
+			</ul>
+		</div>
+		<script src="./js/vue.js"></script>
+		<script>
+			//vm:vue实例化
+			var vm = new Vue({
+				//配置：匹对id：app的标签
+				el:"#app",//css选择器
+				// 一个data数据对象
+				data:{
+					//和界面相关的数据
+					title:"库存管理系统",
+					// 数组对象
+					products:[
+						// 对象
+						{name:'iphone',stock:10 },
+						{name:'xiaomi',stock:5 },
+						{name:'huawei',stock:7 },
+					],
+					dtetsqlMy:[
+						{name:'text',velue:10 },
+						{name:'test',velue:5 },
+						{name:'sel',velue:7 },
+						{name:'cat',velue:10},
+						{name:'databse',velue:5}
+					]
+				},
+				// 创建一个方法对象
+				methods:{
+					//删除方法
+					remove(i){
+						//获取当前this vm实例里面的products数组删除当前i的元素，只删除一次    splice()删除
+						this.products.splice(i, 1)
+					},
+					// 点击事件  传入products数组对象  newStock变量
+					changeStock(products, newStock){
+						// 判断newStock小于0的时候
+						if(newStock < 0){
+							// newStock等于0
+							newStock = 0;
+						}
+						//否则
+						else{
+							// vm实例products数组下的stock对象=newStock变量
+							products.stock=newStock;
+		
+						}
+					},
+				},
+				
+			});
+		</script>
+	</body>
+</html>
