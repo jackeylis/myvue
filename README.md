@@ -1,2 +1,2 @@
-# Bootstrap
-Bootstrap基础
+# vue基础
+vue 基础知识
